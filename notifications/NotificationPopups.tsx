@@ -16,6 +16,14 @@ export default function NotificationPopups() {
 	const notifiedHandler = notifd.connect("notified", (_, id, replaced) => {
 		const notification = notifd.get_notification(id)
 
+		// filter unwanted apps
+		const blockedApps = ["Spotify"]
+
+		if (blockedApps.includes(notification.appName)) {
+			notification.dismiss()
+			return
+		}
+
 		if (replaced && notifications.get().some((n) => n.id === id)) {
 			setNotifications((ns) => ns.map((n) => (n.id === id ? notification : n)))
 		} else {
