@@ -46,6 +46,9 @@ export default function NotificationPopups() {
 				<window
 					$={(self) => onCleanup(() => self.destroy())}
 					class="NotificationPopups"
+					// Named so Hyprland can target just these popups:
+					//   layerrule = blur, notifications
+					namespace="notifications"
 					gdkmonitor={monitor}
 					visible={notifications((ns) => ns.length > 0)}
 					anchor={Astal.WindowAnchor.TOP | Astal.WindowAnchor.RIGHT}
