@@ -52,19 +52,23 @@ window.NotificationPopups {
 
     // Bare glyph until you point at it; a framed button up here reads as
     // clutter on something this small.
+    //
+    // !important throughout: Home Manager imports the adw-gtk3 stylesheet from
+    // ~/.config/gtk-4.0/gtk.css, and *user* CSS outranks an application's own
+    // provider in GTK. Without it the theme's button gradient paints straight
+    // over these rules and every button comes out an opaque slab.
     button {
       padding: 0.15rem;
       min-width: 0;
       min-height: 0;
-      border: none;
-      box-shadow: none;
-      background-image: none;
-      background-color: transparent;
+      border: none !important;
+      box-shadow: none !important;
+      background-image: none !important;
+      background-color: transparent !important;
       color: gtkalpha($fg-color, 0.55);
 
       &:hover {
-        background-image: none;
-        background-color: gtkalpha($fg-color, 0.12);
+        background-color: gtkalpha($fg-color, 0.12) !important;
         color: $fg-color;
       }
     }
@@ -100,25 +104,24 @@ window.NotificationPopups {
 
     // Tinted rather than filled, so the wallpaper still reads through the row
     // of buttons instead of it turning into a solid bar across the popup.
-    // background-image must be cleared too — adw-gtk3 paints buttons with a
-    // gradient, and that sits on top of background-color.
+    // See the note on the header button about !important.
     button {
       margin-right: 0.4rem;
       padding: 0.35rem 0.5rem;
-      border: none;
-      box-shadow: none;
+      border: none !important;
+      box-shadow: none !important;
       border-radius: 10px;
-      background-image: none;
-      background-color: gtkalpha($fg-color, 0.1);
+      background-image: none !important;
+      background-color: gtkalpha($fg-color, 0.1) !important;
       color: gtkalpha($fg-color, 0.9);
 
       &:hover {
-        background-color: gtkalpha($fg-color, 0.18);
+        background-color: gtkalpha($fg-color, 0.18) !important;
         color: $fg-color;
       }
 
       &:active {
-        background-color: gtkalpha($fg-color, 0.24);
+        background-color: gtkalpha($fg-color, 0.24) !important;
       }
 
       &:last-child {
