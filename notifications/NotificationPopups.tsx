@@ -47,7 +47,7 @@ export default function NotificationPopups() {
 					$={(self) => onCleanup(() => self.destroy())}
 					class="NotificationPopups"
 					// Named so Hyprland can target just these popups:
-					//   layerrule = blur, notifications
+					//   layerrule = blur on, match:namespace notifications
 					namespace="notifications"
 					gdkmonitor={monitor}
 					visible={notifications((ns) => ns.length > 0)}
