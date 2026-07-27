@@ -69,12 +69,15 @@
 
       devShells.${system} = {
         default = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            libnotify
-            (ags.packages.${system}.default.override {
-              inherit extraPackages;
-            })
-          ];
+          buildInputs =
+            with pkgs;
+            [
+              libnotify
+              (ags.packages.${system}.default.override {
+                inherit extraPackages;
+              })
+            ]
+            ++ extraPackages;
         };
       };
     };
