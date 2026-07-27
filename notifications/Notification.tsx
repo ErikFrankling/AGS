@@ -64,7 +64,10 @@ export default function Notification({ notification: n }: NotificationProps) {
 						halign={Gtk.Align.END}
 						label={time(n.time)}
 					/>
-					<button onClicked={() => n.dismiss()}>
+					{/* `flat` is the theme's own no-chrome button; asking for it is
+					    far more reliable than trying to override the styling from
+					    here, since GTK ranks the user stylesheet above ours. */}
+					<button class="flat" onClicked={() => n.dismiss()}>
 						<image iconName="window-close-symbolic" />
 					</button>
 				</box>
@@ -109,9 +112,18 @@ export default function Notification({ notification: n }: NotificationProps) {
 				{n.actions.length > 0 && (
 					<box class="actions">
 						{n.actions.map(({ label, id }) => (
-							<button hexpand onClicked={() => n.invoke(id)}>
-								<label label={label} halign={Gtk.Align.CENTER} hexpand />
-							</button>
+							// The tint lives on the wrapper, not the button: a class the
+							// theme has no opinion about is the only place our own
+							// stylesheet reliably wins.
+							<box class="action" hexpand>
+								<button
+									class="flat"
+									hexpand
+									onClicked={() => n.invoke(id)}
+								>
+									<label label={label} halign={Gtk.Align.CENTER} hexpand />
+								</button>
+							</box>
 						))}
 					</box>
 				)}

@@ -50,27 +50,13 @@ window.NotificationPopups {
       margin-right: 0.4rem;
     }
 
-    // Bare glyph until you point at it; a framed button up here reads as
-    // clutter on something this small.
-    //
-    // !important throughout: Home Manager imports the adw-gtk3 stylesheet from
-    // ~/.config/gtk-4.0/gtk.css, and *user* CSS outranks an application's own
-    // provider in GTK. Without it the theme's button gradient paints straight
-    // over these rules and every button comes out an opaque slab.
+    // The close button carries the theme's `flat` class, so it is already
+    // chrome-less; all that is left is to make it sit down next to the app
+    // name instead of shouting.
     button {
       padding: 0.15rem;
       min-width: 0;
       min-height: 0;
-      border: none !important;
-      box-shadow: none !important;
-      background-image: none !important;
-      background-color: transparent !important;
-      color: gtkalpha($fg-color, 0.55);
-
-      &:hover {
-        background-color: gtkalpha($fg-color, 0.12) !important;
-        color: $fg-color;
-      }
     }
   }
 
@@ -103,29 +89,21 @@ window.NotificationPopups {
     margin: 0 0.75rem 0.75rem 0.75rem;
 
     // Tinted rather than filled, so the wallpaper still reads through the row
-    // of buttons instead of it turning into a solid bar across the popup.
-    // See the note on the header button about !important.
-    button {
+    // of buttons instead of it turning into a solid bar across the popup. The
+    // tint is on `.action`, a class the theme never selects; the button inside
+    // is `flat` and contributes nothing but its label and hover highlight.
+    .action {
       margin-right: 0.4rem;
-      padding: 0.35rem 0.5rem;
-      border: none !important;
-      box-shadow: none !important;
       border-radius: 10px;
-      background-image: none !important;
-      background-color: gtkalpha($fg-color, 0.1) !important;
-      color: gtkalpha($fg-color, 0.9);
-
-      &:hover {
-        background-color: gtkalpha($fg-color, 0.18) !important;
-        color: $fg-color;
-      }
-
-      &:active {
-        background-color: gtkalpha($fg-color, 0.24) !important;
-      }
+      background-color: gtkalpha($fg-color, 0.1);
 
       &:last-child {
         margin-right: 0;
+      }
+
+      button {
+        padding: 0.35rem 0.5rem;
+        color: gtkalpha($fg-color, 0.9);
       }
     }
   }
