@@ -68,7 +68,6 @@ export default function Notification({ notification: n }: NotificationProps) {
 						<image iconName="window-close-symbolic" />
 					</button>
 				</box>
-				<Gtk.Separator visible />
 				<box class="content">
 					{n.image && fileExists(n.image) && (
 						<image valign={Gtk.Align.START} class="image" file={n.image} />
