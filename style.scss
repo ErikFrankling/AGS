@@ -4,10 +4,13 @@
   @return string.unquote("alpha(#{$c},#{$a})");
 }
 
-// https://gitlab.gnome.org/GNOME/gtk/-/blob/gtk-3-24/gtk/theme/Adwaita/_colors-public.scss
-$fg-color: #{"@theme_fg_color"};
-$bg-color: #{"@theme_bg_color"};
-$error: red;
+// libadwaita's GTK4 palette. @theme_fg_color/@theme_bg_color are GTK3 names
+// that only resolve through a GTK3 theme, which is not what a GTK4 app renders
+// with — see the comment in app.ts.
+// https://gnome.pages.gitlab.gnome.org/libadwaita/doc/main/named-colors.html
+$fg-color: #{"@card_fg_color"};
+$bg-color: #{"@card_bg_color"};
+$error: #{"@error_color"};
 
 window.NotificationPopups {
   all: unset;
@@ -18,7 +21,7 @@ window.NotificationPopups {
   background-color: $bg-color;
   margin: 0.5rem 1rem 0.5rem 1rem;
   box-shadow: 2px 3px 8px 0 gtkalpha(black, 0.4);
-  border: 1pt solid gtkalpha($fg-color, 0.03);
+  border: 1pt solid gtkalpha($fg-color, 0.08);
 
   &.critical {
     border: 1pt solid gtkalpha($error, 0.4);
@@ -36,7 +39,7 @@ window.NotificationPopups {
 
   .header {
     padding: 0.5rem;
-    color: gtkalpha($fg-color, 0.5);
+    color: gtkalpha($fg-color, 0.6);
 
     .app-icon {
       margin: 0 0.4rem;
@@ -64,7 +67,7 @@ window.NotificationPopups {
 
   separator {
     margin: 0 0.4rem;
-    background-color: gtkalpha($fg-color, 0.1);
+    background-color: gtkalpha($fg-color, 0.12);
   }
 
   .content {
@@ -73,15 +76,19 @@ window.NotificationPopups {
 
     .summary {
       font-size: 1.2em;
+      font-weight: bold;
       color: $fg-color;
     }
 
     .body {
-      color: gtkalpha($fg-color, 0.8);
+      color: gtkalpha($fg-color, 0.85);
+      // Bodies routinely carry several chat messages separated by newlines;
+      // give the lines room so they do not read as one run-on paragraph.
+      line-height: 1.2;
     }
 
     .image {
-      border: 1px solid gtkalpha($fg-color, 0.02);
+      border: 1px solid gtkalpha($fg-color, 0.08);
       margin-right: 0.5rem;
       border-radius: 9px;
       min-width: 100px;

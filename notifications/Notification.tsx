@@ -4,6 +4,7 @@ import Adw from "gi://Adw"
 import GLib from "gi://GLib"
 import AstalNotifd from "gi://AstalNotifd"
 import Pango from "gi://Pango"
+import { toPangoMarkup, toPlainText } from "./markup"
 
 function isIcon(icon?: string | null) {
 	const iconTheme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default()!)
@@ -81,23 +82,27 @@ export default function Notification({ notification: n }: NotificationProps) {
 							/>
 						</box>
 					)}
-					<box orientation={Gtk.Orientation.VERTICAL}>
+					<box orientation={Gtk.Orientation.VERTICAL} spacing={4}>
 						<label
 							class="summary"
 							halign={Gtk.Align.START}
 							xalign={0}
-							label={n.summary}
+							label={toPlainText(n.summary)}
 							ellipsize={Pango.EllipsizeMode.END}
 						/>
 						{n.body && (
 							<label
 								class="body"
 								wrap
+								// WORD_CHAR keeps long URLs from forcing the popup wider.
+								wrapMode={Pango.WrapMode.WORD_CHAR}
 								useMarkup
 								halign={Gtk.Align.START}
 								xalign={0}
-								justify={Gtk.Justification.FILL}
-								label={n.body}
+								// FILL stretched the spaces between words, which made
+								// multi-message bodies look mangled.
+								justify={Gtk.Justification.LEFT}
+								label={toPangoMarkup(n.body)}
 							/>
 						)}
 					</box>
