@@ -58,11 +58,13 @@ window.NotificationPopups {
       min-height: 0;
       border: none;
       box-shadow: none;
-      background: transparent;
+      background-image: none;
+      background-color: transparent;
       color: gtkalpha($fg-color, 0.55);
 
       &:hover {
-        background: gtkalpha($fg-color, 0.12);
+        background-image: none;
+        background-color: gtkalpha($fg-color, 0.12);
         color: $fg-color;
       }
     }
@@ -98,22 +100,25 @@ window.NotificationPopups {
 
     // Tinted rather than filled, so the wallpaper still reads through the row
     // of buttons instead of it turning into a solid bar across the popup.
+    // background-image must be cleared too — adw-gtk3 paints buttons with a
+    // gradient, and that sits on top of background-color.
     button {
       margin-right: 0.4rem;
       padding: 0.35rem 0.5rem;
       border: none;
       box-shadow: none;
       border-radius: 10px;
-      background: gtkalpha($fg-color, 0.1);
+      background-image: none;
+      background-color: gtkalpha($fg-color, 0.1);
       color: gtkalpha($fg-color, 0.9);
 
       &:hover {
-        background: gtkalpha($fg-color, 0.18);
+        background-color: gtkalpha($fg-color, 0.18);
         color: $fg-color;
       }
 
       &:active {
-        background: gtkalpha($fg-color, 0.24);
+        background-color: gtkalpha($fg-color, 0.24);
       }
 
       &:last-child {
