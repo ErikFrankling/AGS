@@ -8,8 +8,12 @@
 // that only resolve through a GTK3 theme, which is not what a GTK4 app renders
 // with — see the comment in app.ts.
 // https://gnome.pages.gitlab.gnome.org/libadwaita/doc/main/named-colors.html
-$fg-color: #{"@card_fg_color"};
-$bg-color: #{"@card_bg_color"};
+// popover_* rather than card_*: a card is meant to sit inside a window, so its
+// background is a translucent white overlay and the wallpaper reads straight
+// through a layer-shell surface. Popovers are the floating-above-everything
+// token, and they are opaque.
+$fg-color: #{"@popover_fg_color"};
+$bg-color: #{"@popover_bg_color"};
 $error: #{"@error_color"};
 
 window.NotificationPopups {
